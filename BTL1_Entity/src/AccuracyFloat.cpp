@@ -80,46 +80,96 @@ double AccuracyFloat::toDouble(){
     return tuT;
 }
 AccuracyFloat AccuracyFloat::operator+(AccuracyFloat other){
-    long long t;
-    long long b;
-    bool c;
-    if (this -> sign == other.sign){
-        t = this-> num + other.num;
-        if (this-> pre > other.pre){
-            b = this-> dec + other.dec *(this -> pre / other.pre);
-            if (b > this -> pre){
-                b -= this -> pre;
-                ++t;
-                
-            }
-            return {t, b, this-> pre, this -> sign};
-        }
-    b = other.dec + this -> dec * (other.pre / this-> pre);
-    if (b > other.pre){
-        b -= other.pre;
-        ++t;
+    double a = stold((this -> toString()));
+    double b = stold((other.toString()));
+    a += b;
+    long long c = max(this -> pre, other.pre);
+    int m = 0;
+    while (c > 0){
+        ++m;
+        c / 10;
     }
-    return {t, b, other.pre, this -> sign};
+    ostringstream t;
+    t << fixed << setprecision(m) << a;
+    return AccuracyFloat(t.str());
+}
+AccuracyFloat AccuracyFloat::operator-(AccuracyFloat other){
+    double a = stold((this -> toString()));
+    double b = stold((other.toString()));
+    a -= b;
+    long long c = max(this-> pre, other.pre);
+    int m = 0;
+    while (c >0){
+        ++m;
+        c / 10;
     }
-    t = abs(this -> num - other.num);
-    if (this -> num > other.num){
-        c = this-> sign;
-    }else if (other.num > this-> num){
-        c = other.sign;
+    ostringstream t;
+    t << fixed << setprecision(m) << a;
+    return AccuracyFloat(t.str());
+}
+AccuracyFloat AccuracyFloat::operator*(AccuracyFloat other){
+    double a = stold((this-> toString()));
+    double b = stold((other.toString()));
+    a *= b;
+    long long c = max(this-> pre, other.pre);
+    int m = 0;
+    while (c > 0){
+        ++m;
+        c / 10;
+    }
+    ostringstream t;
+    t << fixed << setprecision(m) << a;
+    return AccuracyFloat(t.str());
+}
+AccuracyFloat AccuracyFloat::operator/(AccuracyFloat other){
+    double a = stold((this-> toString()));
+    double b = stold((other.toString()));
+    a /= b;
+    long long c = max(this-> pre, other.pre);
+    int m = 0;
+    while(c > 0){
+        ++m;
+        c / 10;
+    }
+    ostringstream t;
+    t << fixed << setprecision(m) << a;
+    return AccuracyFloat(t.str());
+}
+bool AccuracyFloat::operator==(AccuracyFloat other){
+    if(this-> sign == other.sign && this -> num == other.num && this -> dec == other.dec && this -> pre == other.pre){
+        return 1;
+    }
+    return 0;
+}
+bool AccuracyFloat::operator=(AccuracyFloat other){
+    this -> num = other.num;
+    this -> pre = other.pre;
+    this -> dec = other.dec;
+    this -> sign = other.sign;
+    return 1;
+}
+bool AccuracyFloat::operator>(AccuracyFloat other){
+    if (this -> sign != other.sign){
+        return (!(this-> sign));
     }else{
-        if (this-> pre > other.pre){
-            if (this -> dec > other.dec *( this -> pre / other.pre)){
-                c = this -> sign;
-            }else{
-                c = other.sign;
+        if (this -> sign){
+            if (this-> num < other.num || (double)(this -> dec) / this -> pre < (double)(other.dec) / other.pre){
+                return 1;
             }
         }else{
-            if (other.dec > this -> dec *(other.pre / this -> pre)){
-                c = other.sign;
-            }else{
-                c = this-> sign;
+            if (this-> num > other.num || (double)(this -> dec) / this -> pre > (double)(other.dec) / other.pre){
+                return 1;
             }
         }
     }
-    b = this -> dec / this -> pre - other.dec / other.pre;
+    return 0;
+}
+bool AccuracyFloat::operator<(AccuracyFloat other){
+    return !(*this > other);
+}
+bool AccuracyFloat::operator>=(AccuracyFloat other){
+    return *this > other || *this == other;
+}
+bool AccuracyFloat::operator<=(AccuracyFloat other){
+    return *this < other || *this == other;
 }

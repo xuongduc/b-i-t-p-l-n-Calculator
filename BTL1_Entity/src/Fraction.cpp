@@ -151,3 +151,6 @@ bool Fraction::operator>(Fraction other){
 bool Fraction::operator<(Fraction other){
     return !(*this > other);
 }
+bool Fraction::operator!=(Fraction other){
+    return !(*this == other);
+}

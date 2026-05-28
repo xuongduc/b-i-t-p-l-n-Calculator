@@ -173,3 +173,6 @@ bool AccuracyFloat::operator>=(AccuracyFloat other){
 bool AccuracyFloat::operator<=(AccuracyFloat other){
     return *this < other || *this == other;
 }
+bool AccuracyFloat::operator!=(AccuracyFloat other){
+    return !(*this == other);
+}

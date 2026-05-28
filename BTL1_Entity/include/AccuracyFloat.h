@@ -24,6 +24,7 @@ public:
     AccuracyFloat operator/(AccuracyFloat other);
     bool operator==(AccuracyFloat other);
     bool operator=(AccuracyFloat other);
+    bool operator!=(AccuracyFloat other);
     bool operator>(AccuracyFloat other);
     bool operator<(AccuracyFloat other);
     bool operator>=(AccuracyFloat other);

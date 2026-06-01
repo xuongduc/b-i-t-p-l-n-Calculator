@@ -14,7 +14,7 @@ private:
 public:
     Fraction(long long num, long long den, bool sign);
     Fraction(string input);
-
+    Fraction();
     void simplify();
     string toString();
     Fraction operator+(Fraction other);

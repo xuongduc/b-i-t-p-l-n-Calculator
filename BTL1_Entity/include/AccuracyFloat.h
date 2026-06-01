@@ -4,6 +4,7 @@
 #include <string>
 #include <iostream>
 #include <bits/stdc++.h>
+#include <sstream>
 
 using namespace std;
 class AccuracyFloat {

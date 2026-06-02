@@ -1,6 +1,7 @@
 # Biên dịch (Binaries)
 *.o
 *.out
+*.log
 calculator_btl1
 calculator_btl2
 
